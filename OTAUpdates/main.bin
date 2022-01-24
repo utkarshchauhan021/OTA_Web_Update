@@ -11,7 +11,7 @@
 #include "wifi_functions.h"
 
 #define FIRMWARE_VERSION 0.1                       //To compare and upload latest firmware
-#define UPDATE_JSON_URL "https://utkarshchauhan021.github.io/esp32-ota/" //website to upload code
+#define UPDATE_JSON_URL "https://github.com/utkarshchauhan021/OTA_Web_Update/blob/main/firmware.json" //website to upload code
 #define LED 2
 
 // server certificates
