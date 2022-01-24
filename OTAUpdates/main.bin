@@ -12,7 +12,7 @@
 
 #define FIRMWARE_VERSION 0.1                       //To compare and upload latest firmware
 #define UPDATE_JSON_URL "https://github.com/utkarshchauhan021/OTA_Web_Update/blob/main/firmware.json" //website to upload code
-#define LED 2
+#define BLINK_GPIO GPIO_NUM_2
 
 // server certificates
 extern const char server_cert_pem_start[] asm("_binary_certs_pem_start");
@@ -53,14 +53,15 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
 void blink_task(void *pvParameter)
 {
 
-  pinMode(LED,OUTPUT);
-  while (1)
-  {
-  delay(200);
-  digitalWrite(LED,HIGH);
-  delay(200);
-  digitalWrite(LED,LOW);
-  }
+    gpio_pad_select_gpio(BLINK_GPIO);
+    gpio_set_direction(BLINK_GPIO, GPIO_MODE_OUTPUT);
+    while (1)
+    {
+        gpio_set_level(BLINK_GPIO, 0);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        gpio_set_level(BLINK_GPIO, 1);
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
 }
 
 // Check update task
